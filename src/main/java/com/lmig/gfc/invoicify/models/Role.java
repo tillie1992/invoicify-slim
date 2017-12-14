@@ -9,20 +9,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="invoicify_role")
+@Table(name = "invoicify_role")
 public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String name;
-	
+
 	@ManyToOne(optional = false)
 	private User user;
 
-	public Role() {}
+	public Role() {
+	}
 
 	public Long getId() {
 		return id;
@@ -49,4 +50,3 @@ public class Role {
 	}
 
 }
-

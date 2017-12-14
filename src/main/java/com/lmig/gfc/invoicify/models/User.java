@@ -19,7 +19,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name="invoicify_user")
+@Table(name = "invoicify_user")
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -27,13 +27,13 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(nullable = false, unique = true)
 	private String username;
-	
+
 	@Column(nullable = false)
 	private String password;
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Role> roles;
 
@@ -72,7 +72,7 @@ public class User implements UserDetails {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
-	
+
 	public boolean canSeeAdmin() {
 		return hasRole("ADMIN");
 	}
@@ -84,7 +84,7 @@ public class User implements UserDetails {
 	public boolean canSeeBillingRecords() {
 		return hasRole("CLERK") || hasRole("ADMIN");
 	}
-	
+
 	public void addRole(String roleName) {
 		Role role = new Role();
 		role.setName(roleName);
@@ -95,13 +95,13 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
+
 		for (Role role : roles) {
 			String roleName = "ROLE_" + role.getName();
 			SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleName);
 			authorities.add(authority);
 		}
-		
+
 		return authorities;
 	}
 
@@ -124,7 +124,7 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 	private boolean hasRole(String roleName) {
 		boolean hasRole = false;
 		for (Role role : roles) {
