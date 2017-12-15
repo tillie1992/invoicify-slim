@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // This needs to be an entity
 @Entity
 public abstract class BillingRecord {
@@ -17,6 +19,7 @@ public abstract class BillingRecord {
 	private Long id;
 
 	// This needs a user named createdBy
+	@JsonIgnore
 	@ManyToOne
 	private User createdBy;
 
@@ -29,6 +32,7 @@ public abstract class BillingRecord {
 	private InvoiceLineItem lineItem;
 
 	// This needs a company named client that is a many-to-one relationship
+	
 	@ManyToOne
 	private Company client;
 
